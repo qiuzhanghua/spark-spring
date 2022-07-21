@@ -2,6 +2,11 @@
 
 ## 0. before
 
+start pgsql as
+
+https://qiuzhanghua.github.io/posts/2022/0506-01-pgsql-on-mac-with-tdp/
+
+start redis as
 ```bash
 redis-server
 ```

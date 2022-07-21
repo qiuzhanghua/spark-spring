@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.example"
-version = "0.0.3-SNAPSHOT"
+version = "0.0.3"
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
@@ -28,6 +28,7 @@ val picocliVersion: String by project
 val sparkVersion: String by project
 val sparkRedisVersion: String by project
 val janinoVersion: String by project
+val pgsqlVersion: String by project
 
 configurations {
     all {
@@ -40,6 +41,8 @@ dependencies {
     implementation("info.picocli:picocli-spring-boot-starter:${picocliVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.postgresql:postgresql:${pgsqlVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
 //    implementation("org.springframework.shell:spring-shell-starter")
     implementation("org.apache.spark:spark-core_2.12:${sparkVersion}")
     implementation("org.apache.spark:spark-sql_2.12:${sparkVersion}")

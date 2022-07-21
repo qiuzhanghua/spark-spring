@@ -80,17 +80,34 @@ class SparkSpringApplication {
     }
 
     @Bean
-    fun CommandLineRunner(jsc: JavaSparkContext, spark: SparkSession): CommandLineRunner = CommandLineRunner {
+    fun CommandLineRunner(
+        jsc: JavaSparkContext,
+        spark: SparkSession,
+        @Value("\${spring.datasource.url}") url: String,
+        @Value("\${spring.datasource.username}") username: String,
+        @Value("\${spring.datasource.password}") password: String
+    ): CommandLineRunner = CommandLineRunner {
         log.debug(" ======= show airports data =======")
         val data: Dataset<Row> = spark.read().option("header", "true").csv("data/airports.csv")
         data.show(5, true)
+        log.debug(" ====== end of show airports ======")
         data.write()
             .format("org.apache.spark.sql.redis")
             .option("table", "airports")
             .option("key.column", "id")
             .mode(SaveMode.Overwrite)
             .save()
-        log.debug(" ====== end of show airports ======")
+        log.debug(" ====== write airports to redis ======")
+
+        data.write()
+            .format("jdbc")
+            .option("dbtable", "airports")
+            .option("url", url)
+            .option("user", username)
+            .option("password", password)
+            .mode(SaveMode.Overwrite)
+            .save()
+        log.debug(" ====== write airports to pg ======")
     }
 }
 
