@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.example"
-version = "0.0.2"
+version = "0.0.3-SNAPSHOT"
 
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
